@@ -17,6 +17,15 @@
 }
 
 
+@if (@ViewBag.msjCorrecto != null)
+{
+    <div>
+        <div class="alert alert-success">
+            @ViewBag.msjCorrecto
+        </div>
+    </div>
+}
+
 <div class="row" style="margin-left:1%">
     @Html.ActionLink("Create", "Create")
 </div>

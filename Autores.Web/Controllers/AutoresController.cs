@@ -20,6 +20,11 @@ namespace Autores.Web.Controllers
                 ViewBag.msj = TempData["msj"].ToString();
             }
 
+            if (TempData.ContainsKey("msjCorrecto"))
+            {
+                ViewBag.msjCorrecto = TempData["msjCorrecto"].ToString();
+            }
+
             List<ListAutoresViewModel> lst;
             using (dbAppLibreriaEntities db = new dbAppLibreriaEntities())
             {
@@ -63,6 +68,8 @@ namespace Autores.Web.Controllers
                         db.Autor.Add(oAutores);
                         db.SaveChanges();
                     }
+                    TempData["msjCorrecto"] = "Se realiza Creación del registro correctamente";
+                    ViewBag.msjCorrecto = TempData["msjCorrecto"];
                     return Redirect("~/Autores/");
                 }
                 return View(model);
@@ -112,6 +119,8 @@ namespace Autores.Web.Controllers
                         db.Entry(oAutores).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                     }
+                    TempData["msjCorrecto"] = "Se realiza Modificación del registro correctamente";
+                    ViewBag.msjCorrecto = TempData["msjCorrecto"];
                     return Redirect("~/Autores/");
                 }
                 return View(model);
@@ -136,6 +145,8 @@ namespace Autores.Web.Controllers
                     db.Autor.Remove(oAutores);
                     db.SaveChanges();
                 }
+                TempData["msjCorrecto"] = "Se Eliminó el registro correctamente";
+                ViewBag.msjCorrecto = TempData["msjCorrecto"];
                 return Redirect("~/Autores/");
             }
             catch
