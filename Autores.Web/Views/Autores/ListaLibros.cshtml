@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.NombreLibro)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaPublicacion)
+        </th>
         <th></th>
     </tr>
 
@@ -32,6 +35,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreLibro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPublicacion)
             </td>
 
         </tr>

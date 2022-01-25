@@ -19,6 +19,9 @@ namespace Autores.Web.Models.ViewModels
         public string Descripcion { get; set; }
         public string Documento { get; set; }
         public string NombreAutor { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaPublicacion { get; set; }
     }
 }

@@ -55,5 +55,26 @@ namespace Librerias.Models.Queries
                 Message = rowsAffected > 0 ? string.Empty : "Ha ocurrido un error al momento de guardar los datos"
             };
         }
+
+
+        public BaseResult Update(LibroRelacion librosRelaciones)
+        {
+            var rowsAffected = 0;
+            using (var db = GetConnection())
+            {
+                librosRelaciones.FechaModificacion = DateTime.Now;
+                rowsAffected = db.Execute(@"UPDATE [LibrosRelaciones]
+                                                SET IdLibro = @IdLibro,
+                                                    IdCategoria = @IdCategoria,
+                                                    IdAutor = @IdAutor,
+                                                    FechaModificacion = @FechaModificacion 
+                                                    WHERE IdRelacion = @IdRelacion", librosRelaciones);
+            }
+            return new BaseResult
+            {
+                Success = rowsAffected > 0,
+                Message = rowsAffected > 0 ? string.Empty : "Ha ocurrido un error al momento de guardar los datos"
+            };
+        }
     }
 }

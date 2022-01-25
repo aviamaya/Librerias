@@ -68,16 +68,16 @@ namespace Librerias.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Libro libro)
+        public IActionResult Edit(LibroRelacion librosRelaciones)
         {
             TempData["msj"] = "";
-            var result = _database.Libros.UpdateLibro(libro);
+            var result = _database.LibrosRelaciones.Update(librosRelaciones);
             if (!result.Success)
             {
                 ModelState.AddModelError(string.Empty, result.Message);
                 TempData["msj"] = result.Message;
                 ListasDesplegables();
-                return View(libro);
+                return View(librosRelaciones);
             }
 
             TempData["msj"] = "Se realiza la Modificación del registro correctamente";
