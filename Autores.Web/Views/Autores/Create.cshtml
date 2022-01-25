@@ -1,0 +1,43 @@
+﻿@model Autores.Web.Models.ViewModels.AutoresViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Autores", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.LabelFor(d => d.Documento)
+                @Html.TextBoxFor(d => d.Documento, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Documento, null, new { @class = "red" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(d => d.Nombres)
+                @Html.TextBoxFor(d => d.Nombres, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Nombres, null, new { @class = "red" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(d => d.Apellidos)
+                @Html.TextBoxFor(d => d.Apellidos, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Apellidos, null, new { @class = "red" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(d => d.Correo)
+                @Html.TextBoxFor(d => d.Correo, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Correo, null, new { @class = "red" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(d => d.Celular)
+                @Html.TextBoxFor(d => d.Celular, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Celular, null, new { @class = "red" })
+            </div>
+        </div>
+        <div class="row" style="text-align:right; padding:5px;">
+            <input value="Guardar" class="btn btn-primary" type="submit" />
+        </div>
+    </div>
+}

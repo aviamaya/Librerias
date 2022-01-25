@@ -1,0 +1,54 @@
+﻿@model List<Autores.Web.Models.ViewModels.ListAutoresViewModel>
+
+@{
+    ViewBag.Title = "Autores";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (@ViewBag.msj != null)
+{
+    <div>
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            @ViewBag.msj
+        </div>
+    </div>
+}
+
+
+<div class="row" style="margin-left:1%">
+    @Html.ActionLink("Create", "Create")
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>#</th>
+                <th>Documento</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Celular</th>
+                <th></th>
+            </tr>
+            @foreach (var lista in Model)
+            {
+                <tr>
+                    <td>@lista.IdAutor</td>
+                    <td>@lista.Documento</td>
+                    <td>@lista.Nombres</td>
+                    <td>@lista.Apellidos</td>
+                    <td>@lista.Correo</td>
+                    <td>@lista.Celular</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = lista.IdAutor }) |
+                        @Html.ActionLink("Libros", "ListaLibros", new { id = lista.IdAutor }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = lista.IdAutor })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

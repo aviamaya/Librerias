@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Autores.Web.Models.ViewModels.ListaLibrosPorAutor>
+
+@{
+    ViewBag.Title = "ListaLibros";
+}
+
+<h2>ListaLibros</h2>
+
+<div class="row" style="margin-left:1%">
+    @Html.ActionLink("Volver", "Index")
+</div>
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detalle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreLibro)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRelacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detalle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreLibro)
+            </td>
+
+        </tr>
+    }
+
+</table>

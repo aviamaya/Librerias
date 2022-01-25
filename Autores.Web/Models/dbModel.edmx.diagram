@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3fdcfbf781946c3bf11780dec42e6d0" Name="Diagram1">
+        <EntityTypeShape EntityType="dbAppLibreriaModel.Categorias" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAppLibreriaModel.Libros" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbAppLibreriaModel.LibrosRelaciones" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="dbAppLibreriaModel.FK_LibrosRelaciones_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="dbAppLibreriaModel.FK_LibrosRelaciones_Libros" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbAppLibreriaModel.Autor" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="dbAppLibreriaModel.FK_LibrosRelaciones_Autores" />
+        <EntityTypeShape EntityType="dbAppLibreriaModel.v_Lista_LibrosRelacion" Width="1.5" PointX="3.375" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

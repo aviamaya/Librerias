@@ -1,0 +1,60 @@
+﻿@model Librerias.Models.v_Lista_LibrosRelacion
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Detail</h1>
+
+<div>
+    <h4>v_Lista_LibrosRelacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdRelacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdRelacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreLibro)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreLibro)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Detalle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Detalle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaPublicacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaPublicacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Documento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Documento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreAutor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreAutor)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRelacion }) |
+    <a asp-action="Index">Back to List</a>
+</div>

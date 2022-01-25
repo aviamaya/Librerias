@@ -1,0 +1,50 @@
+﻿@model Librerias.Models.v_Lista_LibrosRelacion
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>LibroRelacion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(d => d.IdRelacion)
+            <div class="form-group">
+                <label asp-for="IdLibro" class="control-label"></label>
+                <select asp-for="IdLibro" asp-items="@ViewBag.Libros" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select>
+                <span asp-validation-for="IdLibro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdCategoria" class="control-label"></label>
+                <select asp-for="IdCategoria" asp-items="@ViewBag.Categorias" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select>
+                <span asp-validation-for="IdCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAutor" class="control-label"></label>
+                <select asp-for="IdAutor" asp-items="@ViewBag.Autores" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                </select>
+                <span asp-validation-for="IdAutor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

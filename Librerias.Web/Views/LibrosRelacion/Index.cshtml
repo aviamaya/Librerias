@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Librerias.Models.v_Lista_LibrosRelacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (@ViewBag.msj != null)
+{
+    <div>
+        <div class="alert alert-success">
+            @ViewBag.msj
+        </div>
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRelacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreLibro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreAutor)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdRelacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreLibro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreAutor)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdRelacion }) |
+                    @Html.ActionLink("Detail", "Detail", new { id = item.IdRelacion }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdRelacion })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

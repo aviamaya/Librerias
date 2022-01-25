@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbAppLibreriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle" Type="nvarchar(max)" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreLibro" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="FechaPublicacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="LibrosRelaciones">
+          <Key>
+            <PropertyRef Name="IdRelacion" />
+          </Key>
+          <Property Name="IdRelacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLibro" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="IdAutor" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime2" Precision="7" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'dbAppLibreria.dbo.v_Lista_LibrosRelacion' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="v_Lista_LibrosRelacion">
+          <Key>
+            <PropertyRef Name="IdRelacion" />
+            <PropertyRef Name="IdLibro" />
+            <PropertyRef Name="IdAutor" />
+            <PropertyRef Name="IdCategoria" />
+            <PropertyRef Name="FechaPublicacion" />
+            <PropertyRef Name="Documento" />
+            <PropertyRef Name="NombreAutor" />
+          </Key>
+          <Property Name="IdRelacion" Type="int" Nullable="false" />
+          <Property Name="IdLibro" Type="int" Nullable="false" />
+          <Property Name="IdAutor" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="NombreLibro" Type="nvarchar(max)" />
+          <Property Name="Detalle" Type="nvarchar(max)" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="FechaPublicacion" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreAutor" Type="varchar" MaxLength="501" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LibrosRelaciones_Autores">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="LibrosRelaciones" Type="Self.LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LibrosRelaciones_Categorias">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="LibrosRelaciones" Type="Self.LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LibrosRelaciones_Libros">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
+          <End Role="LibrosRelaciones" Type="Self.LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbAppLibreriaModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibrosRelaciones" EntityType="Self.LibrosRelaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_Lista_LibrosRelacion" EntityType="Self.v_Lista_LibrosRelacion" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_Lista_LibrosRelacion].[IdRelacion] AS [IdRelacion], 
+    [v_Lista_LibrosRelacion].[IdLibro] AS [IdLibro], 
+    [v_Lista_LibrosRelacion].[IdAutor] AS [IdAutor], 
+    [v_Lista_LibrosRelacion].[IdCategoria] AS [IdCategoria], 
+    [v_Lista_LibrosRelacion].[NombreLibro] AS [NombreLibro], 
+    [v_Lista_LibrosRelacion].[Detalle] AS [Detalle], 
+    [v_Lista_LibrosRelacion].[Descripcion] AS [Descripcion], 
+    [v_Lista_LibrosRelacion].[FechaPublicacion] AS [FechaPublicacion], 
+    [v_Lista_LibrosRelacion].[Documento] AS [Documento], 
+    [v_Lista_LibrosRelacion].[NombreAutor] AS [NombreAutor]
+    FROM [dbo].[v_Lista_LibrosRelacion] AS [v_Lista_LibrosRelacion]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_LibrosRelaciones_Autores" Association="Self.FK_LibrosRelaciones_Autores">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LibrosRelaciones_Categorias" Association="Self.FK_LibrosRelaciones_Categorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LibrosRelaciones_Libros" Association="Self.FK_LibrosRelaciones_Libros">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbAppLibreriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="LibrosRelaciones" Relationship="Self.FK_LibrosRelaciones_Categorias" FromRole="Categorias" ToRole="LibrosRelaciones" />
+        </EntityType>
+        <EntityType Name="Libros">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreLibro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaPublicacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="LibrosRelaciones" Relationship="Self.FK_LibrosRelaciones_Libros" FromRole="Libros" ToRole="LibrosRelaciones" />
+        </EntityType>
+        <EntityType Name="LibrosRelaciones">
+          <Key>
+            <PropertyRef Name="IdRelacion" />
+          </Key>
+          <Property Name="IdRelacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLibro" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="IdAutor" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK_LibrosRelaciones_Categorias" FromRole="LibrosRelaciones" ToRole="Categorias" />
+          <NavigationProperty Name="Libros" Relationship="Self.FK_LibrosRelaciones_Libros" FromRole="LibrosRelaciones" ToRole="Libros" />
+          <NavigationProperty Name="Autor" Relationship="dbAppLibreriaModel.FK_LibrosRelaciones_Autores" FromRole="LibrosRelaciones" ToRole="Autor" />
+        </EntityType>
+        <Association Name="FK_LibrosRelaciones_Categorias">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="LibrosRelaciones" Type="Self.LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LibrosRelaciones_Libros">
+          <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
+          <End Role="LibrosRelaciones" Type="Self.LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libros">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbAppLibreriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" />
+          <EntitySet Name="LibrosRelaciones" EntityType="Self.LibrosRelaciones" />
+          <AssociationSet Name="FK_LibrosRelaciones_Categorias" Association="Self.FK_LibrosRelaciones_Categorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LibrosRelaciones_Libros" Association="Self.FK_LibrosRelaciones_Libros">
+            <End Role="Libros" EntitySet="Libros" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+          <EntitySet Name="Autor" EntityType="dbAppLibreriaModel.Autor" />
+          <AssociationSet Name="FK_LibrosRelaciones_Autores" Association="dbAppLibreriaModel.FK_LibrosRelaciones_Autores">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="LibrosRelaciones" EntitySet="LibrosRelaciones" />
+          </AssociationSet>
+          <EntitySet Name="v_Lista_LibrosRelacion" EntityType="dbAppLibreriaModel.v_Lista_LibrosRelacion" />
+        </EntityContainer>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombres" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="LibrosRelaciones" Relationship="dbAppLibreriaModel.FK_LibrosRelaciones_Autores" FromRole="Autor" ToRole="LibrosRelaciones" />
+        </EntityType>
+        <Association Name="FK_LibrosRelaciones_Autores">
+          <End Type="dbAppLibreriaModel.Autor" Role="Autor" Multiplicity="1" />
+          <End Type="dbAppLibreriaModel.LibrosRelaciones" Role="LibrosRelaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="LibrosRelaciones">
+              <PropertyRef Name="IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_Lista_LibrosRelacion">
+          <Key>
+            <PropertyRef Name="IdRelacion" />
+            <PropertyRef Name="IdLibro" />
+            <PropertyRef Name="IdAutor" />
+            <PropertyRef Name="IdCategoria" />
+            <PropertyRef Name="FechaPublicacion" />
+            <PropertyRef Name="Documento" />
+            <PropertyRef Name="NombreAutor" />
+          </Key>
+          <Property Name="IdRelacion" Type="Int32" Nullable="false" />
+          <Property Name="IdLibro" Type="Int32" Nullable="false" />
+          <Property Name="IdAutor" Type="Int32" Nullable="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="NombreLibro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Detalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaPublicacion" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreAutor" Type="String" Nullable="false" MaxLength="501" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbAppLibreriaModelStoreContainer" CdmEntityContainer="dbAppLibreriaEntities">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="dbAppLibreriaModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libros">
+            <EntityTypeMapping TypeName="dbAppLibreriaModel.Libros">
+              <MappingFragment StoreEntitySet="Libros">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="NombreLibro" ColumnName="NombreLibro" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LibrosRelaciones">
+            <EntityTypeMapping TypeName="dbAppLibreriaModel.LibrosRelaciones">
+              <MappingFragment StoreEntitySet="LibrosRelaciones">
+                <ScalarProperty Name="IdRelacion" ColumnName="IdRelacion" />
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="dbAppLibreriaModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Lista_LibrosRelacion">
+            <EntityTypeMapping TypeName="dbAppLibreriaModel.v_Lista_LibrosRelacion">
+              <MappingFragment StoreEntitySet="v_Lista_LibrosRelacion">
+                <ScalarProperty Name="NombreAutor" ColumnName="NombreAutor" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="NombreLibro" ColumnName="NombreLibro" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="IdRelacion" ColumnName="IdRelacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
